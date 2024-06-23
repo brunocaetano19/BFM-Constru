@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% if ordem %}Editar{% else %}Nova{% endif %} Ordem de Serviço</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="cliente">Cliente:</label>
+            <input type="text" class="form-control" id="cliente" name="cliente" value="{{ ordem.cliente if ordem else '' }}">
+        </div>
+        {% if ordem %}
+            <h3>Adicionar Item</h3>
+            <div class="form-group">
+                <label for="item_id">Item:</label>
+                <select class="form-control" id="item_id" name="item_id">
+                    {% for item in itens %}
+                        <option value="{{ item.id }}">{{ item.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" class="form-control" id="quantidade" name="quantidade">
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Item</button>
+        {% else %}
+            <button type="submit" class="btn btn-primary">Criar Ordem de Serviço</button>
+        {% endif %}
+    </form>
+{% endblock %}

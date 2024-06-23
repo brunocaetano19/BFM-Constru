@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Estoque</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Quantidade Disponível</th>
+            <th>Quantidade Reservada</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in itens %}
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.quantidade_disponivel }}</td>
+            <td>{{ item.quantidade_reservada }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="post" action="{{ url_for('main.adicionar_item') }}">
+    <input type="text" name="nome" placeholder="Nome" required>
+    <input type="number" name="quantidade" placeholder="Quantidade" required>
+    <button type="submit">Adicionar Item</button>
+</form>
+{% endblock %}

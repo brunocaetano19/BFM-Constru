@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Ordens de Serviço</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ordem in ordens %}
+        <tr>
+            <td>{{ ordem.cliente }}</td>
+            <td>{{ ordem.status }}</td>
+            <td>
+                <a href="{{ url_for('main.ordem', ordem_id=ordem.id) }}" class="btn-primary">Ver</a>
+                {% if ordem.status != 'finalizado' %}
+                <form method="post" action="{{ url_for('main.finalizar_ordem', ordem_id=ordem.id) }}" style="display:inline;">
+                    <button type="submit">Finalizar</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('main.nova_ordem') }}" class="btn-primary">Nova Ordem de Serviço</a>
+{% endblock %}
